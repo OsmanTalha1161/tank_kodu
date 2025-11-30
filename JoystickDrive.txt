@@ -1,0 +1,33 @@
+package frc.robot.commands;
+
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Drivetrain;
+
+public class JoystickDrive extends CommandBase {
+
+    private final Drivetrain drivetrain;
+    private final Joystick joystick;
+
+    public JoystickDrive(Drivetrain drivetrain, Joystick joystick) {
+        this.drivetrain = drivetrain;
+        this.joystick = joystick;
+
+        addRequirements(drivetrain);
+    }
+
+    @Override
+    public void execute() {
+        // Joystick bilgileri (sol ve sağ)
+        double left = joystick.getRawAxis(1);  // Sol çubuk
+        double right = joystick.getRawAxis(5); // Sağ çubuk
+
+        // Tank drive fonksiyonuna yön gönder
+        drivetrain.tankDrive(left, right);
+    }
+
+    @Override
+    public boolean isFinished() {
+        return false;  // Komut sürekli çalışacak
+    }
+}
