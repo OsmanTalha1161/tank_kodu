@@ -1,16 +1,16 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.revrobotics.spark.SparkMax;
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.sensors.CANCoder;
+import edu.wpi.first.wpilibj.Encoder;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmSubsystem extends SubsystemBase {
 
-    private VictorSPX armMotor = new VictorSPX(3);  // motor CAN ID
-    private CANCoder armEncoder = new CANCoder(1);  // encoder CAN ID (örnek)
+    private  SparkMax armMotor = new SparkMax(3, null);
+    private final Encoder encoder = new Encoder(1,2); 
 
     private PIDController pid = new PIDController(0.02, 0, 0); 
 
@@ -20,30 +20,25 @@ public class ArmSubsystem extends SubsystemBase {
     public ArmSubsystem() {
         armMotor.setInverted(false);
 
-        pid.setTolerance(1.0); // 1 derece hata tolerans
+        pid.setTolerance(1.0); 
     }
 
-    // Şu anki açı
     public double getAngle() {
-        return armEncoder.getAbsolutePosition();
+        return encoder.getAbsolutePosition();
     }
 
-    // PID ile hedef açıya git
     public void moveTo(double targetAngle) {
 
-        //sınırlar
         if (targetAngle < MIN_ANGLE) targetAngle = MIN_ANGLE;
         if (targetAngle > MAX_ANGLE) targetAngle = MAX_ANGLE;
 
-        double currentAngle = getAngle();// açı
-        double output = pid.calculate(currentAngle, targetAngle);  // PID hesapla
+        double currentAngle = getAngle();
+        double output = pid.calculate(currentAngle, targetAngle);  
 
-        //PID ile sür
-        armMotor.set(ControlMode.PercentOutput, output);
+        armMotor.set(output);
     }
 
-    //durdurma
     public void stop() {
-        armMotor.set(ControlMode.PercentOutput, 0);
+        armMotor.set(0);
     }
 }

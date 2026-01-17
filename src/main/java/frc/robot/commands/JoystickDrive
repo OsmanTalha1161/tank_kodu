@@ -18,16 +18,12 @@ public class JoystickDrive extends CommandBase {
 
     @Override
     public void execute() {
-        // Joystick bilgileri (sol ve sağ)
-        double left = joystick.getRawAxis();  // Sol çubuk
-        double right = joystick.getRawAxis(); // Sağ çubuk
+    
+        double left = joystick.getRawAxis();  
+        double right = joystick.getRawAxis(); 
 
-        // Tank drive fonksiyonuna yön gönder
+    
         drivetrain.tankDrive(left, right);
     }
-
-    @Override
-    public boolean isFinished() {
-        return false;  // Komut sürekli çalışacak
-    }
+    
 }
