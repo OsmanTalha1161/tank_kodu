@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.subsystems.ArmSubsystem;
 
-public class ArmCommand implements Command {
+public class ArmCommand extends Command {
 
     private final ArmSubsystem arm;
     private final Joystick joystick;
@@ -17,6 +17,7 @@ public class ArmCommand implements Command {
 
     @Override
     public void execute() {
+
 
         if (joystick.getRawButton(1)) {
             arm.moveTo(45);
@@ -30,7 +31,13 @@ public class ArmCommand implements Command {
         else {
             arm.stop();
         }
-    }
 
 
+        if (joystick.getRawButton(4)) {
+            arm.intakeIn();
+        }
+        else if (joystick.getRawButton(5)) {
+            arm.intakeOut();
+        }
+    } 
 }
