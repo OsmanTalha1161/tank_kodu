@@ -1,17 +1,17 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 
 public class JoystickDrive extends CommandBase {
 
     private final Drivetrain drivetrain;
-    private final Joystick joystick;
+    private final XboxController controller;
 
-    public JoystickDrive(Drivetrain drivetrain, Joystick joystick) {
+    public JoystickDrive(Drivetrain drivetrain, XboxController controller) {
         this.drivetrain = drivetrain;
-        this.joystick = joystick;
+        this.controller = controller;
 
         addRequirements(drivetrain);
     }
@@ -19,11 +19,9 @@ public class JoystickDrive extends CommandBase {
     @Override
     public void execute() {
     
-        double left = joystick.getRawAxis();  
-        double right = joystick.getRawAxis(); 
+        double left = controller.getLeftY();  
+        double right = controller.getRightY(); 
 
-    
         drivetrain.tankDrive(left, right);
     }
-    
 }

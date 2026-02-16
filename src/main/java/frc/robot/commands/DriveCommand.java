@@ -25,7 +25,8 @@ public class DriveCommand extends Command {
     public void execute() {
         double left = xSupplier.get();
         double right = ySupplier.get();
+        
 
-        drive.tankDrive(left, right);
+        drive.arcadeDrive(left, right);
     }
 }
