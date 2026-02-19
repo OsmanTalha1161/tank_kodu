@@ -1,22 +1,27 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Pnomatik 
+public class Pnomatik extends SubsystemBase {
 
-{
+    private final DoubleSolenoid piston =
+        new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
 
+    private final Compressor compressor =
+        new Compressor(PneumaticsModuleType.CTREPCM);
 
-private final DoubleSolenoid pnomatik = new DoubleSolenoid(null, 0, 0);
-    
-public void extend(){
-    pnomatik.set(DoubleSolenoid.Value.kForward);
+    public Pnomatik(){
+        compressor.enableDigital();
+    }
+
+    public void extend(){
+        piston.set(DoubleSolenoid.Value.kForward);
+    }
+
+    public void retract(){
+        piston.set(DoubleSolenoid.Value.kReverse);
+    }
 }
-
-public void retract(){
-    pnomatik.set(DoubleSolenoid.Value.kReverse);
-}
-}
-
-
